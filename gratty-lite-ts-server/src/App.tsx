@@ -1,12 +1,12 @@
 import { Route } from "wouter";
-import loginPage from "./pages/login/loginPage.tsx";
-import homePage from "./pages/home/homePage.tsx";
+import LoginPage from "./pages/login/LoginPage.tsx";
+import HomePage from "./pages/home/HomePage.tsx";
 
 function App() {
   return (
     <>
-      <Route path="/login" component={loginPage} />
-      <Route path="/home" component={homePage} />
+      <Route path="/login" component={LoginPage} />
+      <Route path="/home" component={HomePage} />
     </>
   );
 }

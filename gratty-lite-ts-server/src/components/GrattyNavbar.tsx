@@ -17,7 +17,10 @@ function CustomNavLink({ to, name }: { to: string; name: string }) {
 
 export default function GrattyNavbar() {
   let isAuthenticated: boolean = useAuth0().isAuthenticated;
-  const userID = useAuth0().user!!.sub;
+  const user = useAuth0().user;
+  const userID = !!user ? user.sub : null;
+  const logoutFunction = useAuth0().logout;
+
   return (
     <Container fluid className="mb-2">
       <Navbar expand="sm" className="bg-body-tertiary">
@@ -41,7 +44,12 @@ export default function GrattyNavbar() {
                 ></CustomNavLink>
 
                 <div className="d-flex flex-column align-items-center">
-                  <button className="nav-link" type="submit">
+                  <button
+                    className="nav-link"
+                    onClick={() => {
+                      logoutFunction();
+                    }}
+                  >
                     Log Out
                   </button>
                   <div className="border-bottom-nav-link w-75 "></div>
