@@ -4,8 +4,10 @@ import { Link } from "wouter";
 
 export default function homePage() {
   const { user, isAuthenticated, logout } = useAuth0();
-  if (isAuthenticated && user) {
-    axios.post("http://localhost:8081/api/users", { userID: user.sub });
+  if (user && isAuthenticated) {
+    console.log(user);
+    if (user.logins_count >= 1)
+      axios.post("http://localhost:8081/api/users", { userID: user.sub });
   }
   return user && isAuthenticated ? (
     <>
