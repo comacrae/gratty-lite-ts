@@ -5,6 +5,7 @@ import { Container } from "react-bootstrap";
 
 export default function ProfilePage() {
   const { isAuthenticated, isLoading, user } = useAuth0();
+
   if (isLoading)
     return (
       <>
@@ -14,7 +15,7 @@ export default function ProfilePage() {
 
   if (!isAuthenticated) {
     console.log("Finished loading and not authenticated");
-    return <Redirect to="/login?from=profile" />;
+    return <Redirect to="/login?from=/profile" />;
   }
 
   return (

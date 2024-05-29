@@ -1,6 +1,7 @@
 import React from "react";
 import ReactDOM from "react-dom/client";
 import App from "./App.tsx";
+import { AppContext } from "./components/AppContext.tsx";
 import { Auth0Provider } from "@auth0/auth0-react";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "./css/custom.scss";
@@ -12,7 +13,9 @@ ReactDOM.createRoot(document.getElementById("root")!).render(
     authorizationParams={{ redirect_uri: "http://localhost:5173/home" }}
   >
     <React.StrictMode>
-      <App />
+      <AppContext.Provider value={{ redirectTo: null }}>
+        <App />
+      </AppContext.Provider>
     </React.StrictMode>
   </Auth0Provider>
 );

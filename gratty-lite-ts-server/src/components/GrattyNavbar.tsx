@@ -24,13 +24,13 @@ export default function GrattyNavbar() {
   return (
     <Container fluid className="mb-2">
       <Navbar expand="sm" className="bg-body-tertiary">
-        <Navbar.Brand as={Link} to="/">
+        <Navbar.Brand as={Link} to="/home">
           GrattyLite
         </Navbar.Brand>
         <Navbar.Toggle aria-controls="basic-navbar-nav" />
         <Navbar.Collapse id="basic-navbar-nav">
           <Nav className="me-auto">
-            <CustomNavLink to="/" name="Home"></CustomNavLink>
+            <CustomNavLink to="/home" name="Home"></CustomNavLink>
             <CustomNavLink to="/about" name="About"></CustomNavLink>
             {isAuthenticated ? (
               <>

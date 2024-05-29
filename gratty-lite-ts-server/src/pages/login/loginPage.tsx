@@ -1,25 +1,34 @@
+import { useContext } from "react";
+import { RedirectContext } from "../../components/RedirectContext";
+import { RedirectContextType } from "../../@types/redirect";
 import { useAuth0 } from "@auth0/auth0-react";
-import { Redirect, useSearch } from "wouter";
+import { useSearch } from "wouter";
+import Root from "../Root";
 
-export default function LoginPage() {
-  const { loginWithRedirect, isLoading } = useAuth0();
-  const urlParams: URLSearchParams = new URLSearchParams(useSearch());
-  const redirectTo = urlParams.get("from");
+function getPageContents() {
+  const { loginWithRedirect, isLoading, isAuthenticated } = useAuth0();
+  console.log(isLoading, isAuthenticated);
+  const redirectContext = useContext(RedirectContext) as RedirectContextType;
+  const { saveRedirect } = redirectContext;
+  const params = new URLSearchParams(useSearch());
+  console.log(params.get("from"));
+  if (!!params.get("from")) {
+    const redirPath = params.get("from");
+    saveRedirect(!!redirPath ? redirPath : "/home");
+  }
+
+  if (isLoading) {
+    return <h1>Loading...</h1>;
+  }
 
   return (
     <>
-      <div>
-        <h1>Login Page</h1>
-      </div>
-      {isLoading ? (
-        <div>
-          <h2>Loading...</h2>
-        </div>
-      ) : (
-        <div>
-          <button onClick={() => loginWithRedirect()}>Log In</button>
-        </div>
-      )}
+      <h1>Login Page</h1>
+      <button onClick={() => loginWithRedirect()}>Log In</button>
     </>
   );
+}
+
+export default function LoginPage() {
+  return <Root>{getPageContents()}</Root>;
 }
