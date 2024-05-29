@@ -1,9 +1,10 @@
-import React from "react";
-import axios from "axios";
 import { useAuth0 } from "@auth0/auth0-react";
+import { Redirect, useSearch } from "wouter";
 
 export default function LoginPage() {
   const { loginWithRedirect, isLoading } = useAuth0();
+  const urlParams: URLSearchParams = new URLSearchParams(useSearch());
+  const redirectTo = urlParams.get("from");
 
   return (
     <>
@@ -16,13 +17,7 @@ export default function LoginPage() {
         </div>
       ) : (
         <div>
-          <button
-            onClick={() => {
-              loginWithRedirect();
-            }}
-          >
-            Log In
-          </button>
+          <button onClick={() => loginWithRedirect()}>Log In</button>
         </div>
       )}
     </>
